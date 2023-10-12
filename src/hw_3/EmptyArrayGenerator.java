@@ -11,8 +11,7 @@ public class EmptyArrayGenerator {
 
     public static int[] generateArray(){
         Random random = new Random();
-        int[] array = new int[random.nextInt(4, 16)];
-        return array;
+        return new int[random.nextInt(4, 16)];
     }
 
     public static void printArray(int[] array){
