@@ -48,6 +48,7 @@ public class EasySort {
                     buffer = array[j];
                     array[j] = array[j + 1];
                     array[j + 1] = buffer;
+                    printArrayWithHighlight(array, j, j+1);
                 }
             }
         }
@@ -80,5 +81,15 @@ public class EasySort {
             }
         }
         return index;
+    }
+    public static void printArrayWithHighlight(int[] arr, int idx1, int idx2) {
+        for (int i = 0; i < arr.length; i++) {
+            if (i == idx1 || i == idx2) {
+                System.out.print("{" + arr[i] + "} ");
+            } else {
+                System.out.print(arr[i] + " ");
+            }
+        }
+        System.out.println();
     }
 }
