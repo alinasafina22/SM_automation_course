@@ -1,6 +1,6 @@
 package hw_9;
 
-public class AirBnb extends Application implements BookingInterface{
+public class AirBnb extends Application implements IBook {
     @Override
     public String openApplication() {
         return "Open AirBnb";

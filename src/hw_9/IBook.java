@@ -1,6 +1,6 @@
 package hw_9;
 
-public interface BookingInterface {
+public interface IBook {
     String bookProperty();
 
     String cancelBooking();

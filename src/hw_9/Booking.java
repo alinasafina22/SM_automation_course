@@ -1,6 +1,6 @@
 package hw_9;
 
-public class Booking extends Application implements BookingInterface{
+public class Booking extends Application implements IBook {
 
     @Override
     public String openApplication() {
