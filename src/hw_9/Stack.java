@@ -7,30 +7,52 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stack {
-    private ArrayList<Booking> stack;
-    public Stack(){
-        stack = new ArrayList<Booking>();
+    private Booking[] stack;
+    private int stackTop = -1;
+    public Stack(int length){
+        stack = new Booking[length];
     }
 
     public void push(Booking booking){
-        stack.add(booking);
+
+        if (stackTop > stack.length){
+            System.err.println("Stack overflow");
+            return;
+        }
+        else{
+            stack[++stackTop] = booking;
+        }
     }
 
     public Booking pop(){
-        Booking lastItem = stack.get(stack.size() - 1);
-        stack.remove(stack.size() - 1);
-        return lastItem;
+        if(stackTop<0){
+            System.err.println("Stack contains no elements");
+            return null;
+        }
+        return stack[stackTop--];
     }
 
     public Booking peak(){
-        return stack.get(stack.size() - 1);
+        if(stackTop<0){
+            System.err.println("Stack contains no elements");
+            return null;
+        }
+        else {
+            return stack[stackTop];
+        }
     }
 
     public int size(){
-        return stack.size();
+        int len = 0;
+        for (Booking i: stack){
+            if (i != null){
+                len++;
+            }
+        }
+        return len;
     }
 
     public boolean isEmpty(){
-        return stack.isEmpty();
+        return stack.length < 0;
     }
 }
