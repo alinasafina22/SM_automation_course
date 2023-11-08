@@ -1,0 +1,51 @@
+Морфеус сообщает вам что вы - Избранный, и предлагает на выбор синюю и красную таблетки. Вы решаетесь, и берете красную, но вместо обещанного реального мира и Зиона - видите вот эту чушь:
+
+2021-08-02 14:16:48.650 INFO 10176 --- [ restartedMain] ru.devray.study.sbitter.Application : No active profile set, falling back to default profiles: default
+2021-08-02 14:16:48.710 INFO 10176 --- [ restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2021-08-02 14:16:48.710 INFO 10176 --- [ restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2021-08-02 14:16:49.255 INFO 10176 --- [ restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-08-02 14:16:49.295 INFO 10176 --- [ restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 31 ms. Found 1 JPA repository interfaces.
+2021-08-02 14:16:49.749 INFO 10176 --- [ restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+2021-08-02 14:16:49.756 INFO 10176 --- [ restartedMain] o.apache.catalina.core.StandardService : Starting service [Tomcat]
+2021-08-02 14:16:49.756 INFO 10176 --- [ restartedMain] org.apache.catalina.core.StandardEngine : Starting Servlet engine: [Apache Tomcat/9.0.48]
+2021-08-02 14:16:49.947 INFO 10176 --- [ restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+2021-08-02 14:16:49.947 INFO 10176 --- [ restartedMain] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1237 ms
+2021-08-02 14:16:50.077 INFO 10176 --- [ restartedMain] o.hibernate.jpa.internal.util.LogHelper : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-08-02 14:16:50.124 INFO 10176 --- [ restartedMain] org.hibernate.Version : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-08-02 14:16:50.228 INFO 10176 --- [ restartedMain] o.hibernate.annotations.common.Version : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-08-02 14:16:50.309 INFO 10176 --- [ restartedMain] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...
+2021-08-02 14:16:51.490 ERROR 10176 --- [ restartedMain] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Exception during pool initialization.
+
+
+
+На сегодня, миссия Избранного - сохранить это в виде одной единой строки.
+С помощью регулярных выражений, вам потребуется:
+1. из каждой записи лога получить и вывести на экран время (не дату) и само сообщение.
+Например, для строки:
+2021-08-02 14:16:49.749 INFO 10176 --- [ restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer : Tomcat initialized with port(s): 8080 (http)
+Должно быть выведено:
+Время - 14:16:49.749, сообщение: Tomcat initialized with port(s): 8080 (http)
+
+
+
+2. разбить на отдельные строки (подсказка - split по символу переноса строки), и провалидировать каждую полученную строку на наличие блока даты, времени и класса, для которого написан данный лог.
+Например, при проверке строки:
+2021-08-02 14:16:49.947 INFO 10176 --- [ restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+вам потребуется убедиться в наличии секций:
+2021-08-02
+14:16:49.947
+o.a.c.c.C.[Tomcat].[localhost].[/]
+
+
+
+3. В переменной, хранящей весь вышеописынный лог - заменить все отметки времени (не даты) на строку "<time unknown>", результате вывести на экран.
+(здесь в помощь вам - методы строки replace / replaceAll - смотрим что они в себя принимают, как работают, и пытаемся применть для решения задачи)
+
+Например, из строки:
+
+2021-08-02 14:16:49.947 INFO 10176 --- [ restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+
+Мы ожидаем получить:
+
+2021-08-02 <time unknown> INFO 10176 --- [ restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] : Initializing Spring embedded WebApplicationContext
+
