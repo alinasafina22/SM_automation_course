@@ -22,6 +22,7 @@ public class DecodeLogs {
                 "2021-08-02 14:16:50.309 INFO 10176 --- [ restartedMain] com.zaxxer.hikari.HikariDataSource : HikariPool-1 - Starting...\n" +
                 "2021-08-02 14:16:51.490 ERROR 10176 --- [ restartedMain] com.zaxxer.hikari.pool.HikariPool : HikariPool-1 - Exception during pool initialization.";
         getTimeAndMessage(text);
+        System.out.println(replaceTimeToUnknown(text));
     }
 
     public static void getTimeAndMessage(String logs){
@@ -31,5 +32,13 @@ public class DecodeLogs {
         while (matcher.find()) {
             System.out.printf("Время - %s, сообщение: %s \n", matcher.group(1), matcher.group(2));
         }
+    }
+
+    // задание 3
+    // заменить все отметки времени (не даты) на строку "<time unknown>"
+    public static String replaceTimeToUnknown(String logs){
+        String timeRedexp = "\\d{2}:\\d{2}:\\d{2}\\.\\d{3}";
+        logs = logs.replaceAll(timeRedexp, "<time unknown>");
+        return logs;
     }
 }
