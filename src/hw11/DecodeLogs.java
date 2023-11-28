@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +28,7 @@ public class DecodeLogs {
         String text = logs.toString();
         getTimeAndMessage(text);
         System.out.println(replaceTimeToUnknown(text));
+        System.out.println(validateLogs(text));
     }
 
     public static void getTimeAndMessage(String logs){
@@ -47,6 +49,14 @@ public class DecodeLogs {
     }
 
     // задание 2
-    //провалидировать каждую полученную строку на наличие блока даты, времени и класса
-
+    //разбить и провалидировать каждую полученную строку на наличие блока даты, времени и класса
+    public static boolean validateLogs(String logs){
+        String[] lines = logs.split("\n");
+        System.out.println(lines.toString());
+        String regex = "(\\d{4}-\\d{2}-\\d{2}) (\\d{2}:\\d{2}:\\d{2}\\.\\d{3}) (INFO|ERROR) (\\d{5}) --- (\\[ restartedMain\\]) ([^:]+) : (.+)";
+        for(String line: lines){
+            return line.matches(regex);
+        }
+        return false;
+    }
 }
