@@ -17,7 +17,9 @@ public class LinkedList  {
         }
     }
     public void add(int index, String element){
-
+        Node prev;
+        Node last;
+         
     }
 
     public String get(int index){
